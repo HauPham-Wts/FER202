@@ -1,0 +1,11 @@
+// Main SCSS - Import all partials (Lab 5)
+@use './variables';
+@use './functions';
+@use './mixins';
+@use './reset';
+@use './header';
+@use './about';
+@use './skills';
+@use './projects';
+@use './contact';
+@use './footer';

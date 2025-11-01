@@ -1,0 +1,42 @@
+// SCSS Functions - Lab 5
+@use 'sass:color';
+@use 'sass:math';
+
+// Color Functions
+@function lighten-color($color, $amount: 10%) {
+  @return color.adjust($color, $lightness: $amount);
+}
+
+@function darken-color($color, $amount: 10%) {
+  @return color.adjust($color, $lightness: -$amount);
+}
+
+@function transparentize-color($color, $amount: 0.5) {
+  @return color.adjust($color, $alpha: -$amount);
+}
+
+// Spacing Function
+@function spacing($multiplier) {
+  @return $multiplier * 0.25rem; // 4px base
+}
+
+// Convert px to rem
+@function rem($px, $base: 16) {
+  @return math.div($px, $base) * 1rem;
+}
+
+// Calculate percentage
+@function percentage($value, $total) {
+  @return math.div($value, $total) * 100%;
+}
+
+// Get contrast color (black or white based on background)
+@function get-contrast-color($bg-color) {
+  $lightness: color.lightness($bg-color);
+  
+  @if $lightness > 50% {
+    @return #000000;
+  } @else {
+    @return #ffffff;
+  }
+}

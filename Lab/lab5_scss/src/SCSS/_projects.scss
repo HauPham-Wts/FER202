@@ -1,0 +1,84 @@
+// Projects Section SCSS - Lab 5
+@use './variables' as *;
+@use './mixins' as *;
+
+.projects {
+  padding: $spacing-4xl $spacing-lg;
+  @include container;
+  
+  &__title {
+    font-size: $font-size-5xl;
+    text-align: center;
+    margin-bottom: $spacing-3xl;
+    @include gradient-text;
+    
+    @include tablet {
+      font-size: $font-size-4xl;
+    }
+  }
+  
+  &__grid {
+    @include grid(3, $spacing-xl);
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &__card {
+    @include card($spacing-xl, $radius-xl);
+    @include flex-column;
+    gap: $spacing-lg;
+    
+    &-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: $radius-lg;
+      transition: all $transition-base;
+      
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+    
+    &-title {
+      font-size: $font-size-2xl;
+      color: $text-dark;
+      font-weight: $font-weight-bold;
+    }
+    
+    &-description {
+      font-size: $font-size-base;
+      color: $text-light;
+      line-height: 1.6;
+      @include truncate(3);
+    }
+    
+    &-tags {
+      @include flex-center;
+      gap: $spacing-sm;
+      flex-wrap: wrap;
+      
+      .tag {
+        padding: $spacing-xs $spacing-md;
+        background: $gradient-accent;
+        color: white;
+        border-radius: $radius-full;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+      }
+    }
+    
+    &-button {
+      @include button($gradient-primary, $text-white, $spacing-sm $spacing-lg);
+      width: 100%;
+      @include flex-center;
+      gap: $spacing-sm;
+    }
+  }
+}

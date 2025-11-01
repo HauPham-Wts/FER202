@@ -1,0 +1,147 @@
+/* Natural Page Styles (Lab 4) */
+.natural-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+  padding: 60px 20px;
+}
+
+body.dark-mode .natural-page {
+  background: linear-gradient(135deg, #1a4d2e 0%, #2d5f3f 100%);
+}
+
+.natural-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.natural-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.natural-title {
+  font-size: 56px;
+  font-weight: 900;
+  color: white;
+  margin: 0 0 20px 0;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.natural-icon {
+  font-size: 52px;
+  animation: leafFloat 3s ease-in-out infinite;
+}
+
+@keyframes leafFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+}
+
+.natural-subtitle {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 32px 0;
+  font-weight: 300;
+}
+
+.natural-description {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 32px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.natural-description p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+}
+
+.orchids-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.no-results {
+  text-align: center;
+  padding: 80px 20px;
+  color: white;
+}
+
+.no-results-icon {
+  font-size: 80px;
+  display: block;
+  margin-bottom: 24px;
+}
+
+.no-results h3 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+
+.no-results p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .natural-page {
+    padding: 40px 16px;
+  }
+
+  .natural-title {
+    font-size: 36px;
+    gap: 12px;
+  }
+
+  .natural-icon {
+    font-size: 32px;
+  }
+
+  .natural-subtitle {
+    font-size: 16px;
+  }
+
+  .natural-description {
+    padding: 20px 24px;
+  }
+
+  .orchids-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .orchids-grid {
+    grid-template-columns: 1fr;
+  }
+}
