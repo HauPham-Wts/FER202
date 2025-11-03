@@ -1,210 +1,289 @@
-// Detail Page Component (Lab 3)
+// Detail Page Component (Lab 3 + Lab 4: Using React Bootstrap Tabs)
+// Lab 6: Updated to use Redux for data fetching
+// Lab 7: Added Feedback feature
 import { useParams, useNavigate } from 'react-router-dom';
-import { orchids } from '../data/ListOfOrchids';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOrchids, addFeedback, deleteFeedback, clearSuccess, clearError } from '../redux/orchidsSlice';
+import { Container, Row, Col, Card, Badge, Button, Tabs, Tab, ListGroup, Alert } from 'react-bootstrap';
+import { FaStar, FaHeart, FaMapMarkerAlt, FaArrowLeft } from 'react-icons/fa';
+import FeedbackForm from '../components/FeedbackForm';
+import FeedbackList from '../components/FeedbackList';
 import './Detail.css';
 
 const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { orchids, loading, success, error } = useSelector((state) => state.orchids);
+  
   const orchid = orchids.find(o => o.id === id);
+
+  useEffect(() => {
+    if (orchids.length === 0) {
+      dispatch(fetchOrchids());
+    }
+  }, [dispatch, orchids.length]);
+
+  // Auto-hide success/error messages
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        dispatch(clearSuccess());
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [success, dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        dispatch(clearError());
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, dispatch]);
+
+  // Handle feedback submission
+  const handleFeedbackSubmit = async (feedbackData) => {
+    await dispatch(addFeedback({ orchidId: id, feedbackData }));
+  };
+
+  // Handle feedback deletion
+  const handleFeedbackDelete = async (feedbackIndex) => {
+    if (window.confirm('Are you sure you want to delete this feedback?')) {
+      await dispatch(deleteFeedback({ orchidId: id, feedbackIndex }));
+    }
+  };
+
+  if (!orchid && loading) {
+    return (
+      <Container className="py-5 text-center">
+        <h1 className="display-4">🌸 Loading...</h1>
+      </Container>
+    );
+  }
 
   if (!orchid) {
     return (
-      <div className="detail-page not-found">
-        <div className="not-found-content">
-          <h1>🌸 Orchid Not Found</h1>
-          <p>Sorry, we couldn't find the orchid you're looking for.</p>
-          <button onClick={() => navigate('/')} className="back-button">
-            ← Back to Home
-          </button>
-        </div>
-      </div>
+      <Container className="py-5 text-center">
+        <h1 className="display-4">🌸 Orchid Not Found</h1>
+        <p className="lead">Sorry, we couldn't find the orchid you're looking for.</p>
+        <Button variant="primary" onClick={() => navigate('/')}>
+          <FaArrowLeft className="me-2" /> Back to Home
+        </Button>
+      </Container>
     );
   }
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, index) => (
-      <span key={index} className={index < rating ? 'star filled' : 'star'}>
-        ★
-      </span>
+      <FaStar key={index} className={index < rating ? 'text-warning' : 'text-muted'} />
     ));
   };
 
   return (
-    <div className="detail-page">
-      <button onClick={() => navigate('/')} className="back-button-top">
-        ← Back to Home
-      </button>
+    <div className="bg-light min-vh-100 py-4">
+      <Container>
+        <Button 
+          variant="outline-primary" 
+          size="lg" 
+          onClick={() => navigate('/')}
+          className="mb-4 shadow-sm"
+        >
+          <FaArrowLeft className="me-2" /> Back to Gallery
+        </Button>
 
-      <div className="detail-container">
-        <div className="detail-hero">
-          <div className="hero-image-wrapper">
-            <img 
-              src={orchid.image} 
-              alt={orchid.name}
-              className="hero-image"
-            />
-            <div className="hero-badges">
-              {orchid.isSpecial && (
-                <span className="hero-badge special">⭐ Special Orchid</span>
-              )}
-              {orchid.isNatural && (
-                <span className="hero-badge natural">🌿 Natural Species</span>
-              )}
-            </div>
-          </div>
+        {/* Success/Error Messages */}
+        {success && (
+          <Alert variant="success" dismissible onClose={() => dispatch(clearSuccess())}>
+            {success}
+          </Alert>
+        )}
+        {error && (
+          <Alert variant="danger" dismissible onClose={() => dispatch(clearError())}>
+            {error}
+          </Alert>
+        )}
 
-          <div className="hero-content">
-            <div className="category-tag">{orchid.category}</div>
-            <h1 className="hero-title">{orchid.name}</h1>
-            
-            <div className="hero-rating">
-              <div className="stars-display">{renderStars(orchid.rating)}</div>
-              <span className="rating-score">{orchid.rating}/5 Stars</span>
-            </div>
+        <Row className="g-4">
+          <Col lg={5}>
+            <div className="position-sticky" style={{ top: '20px' }}>
+              <Card className="shadow border-0 overflow-hidden mb-4">
+                <Card.Img 
+                  variant="top" 
+                  src={orchid.image} 
+                  alt={orchid.name}
+                  style={{ height: '450px', objectFit: 'cover' }}
+                />
+                <Card.Body className="bg-white p-3">
+                  <Badge bg="primary" className="px-3 py-2">{orchid.category}</Badge>
+                </Card.Body>
+              </Card>
 
-            <div className="hero-stats">
-              <div className="stat-box">
-                <span className="stat-icon">❤️</span>
-                <div className="stat-info">
-                  <span className="stat-value">{orchid.numberOfLike.toLocaleString()}</span>
-                  <span className="stat-label">Likes</span>
-                </div>
-              </div>
-              <div className="stat-box">
-                <span className="stat-icon">📍</span>
-                <div className="stat-info">
-                  <span className="stat-value">{orchid.origin}</span>
-                  <span className="stat-label">Origin</span>
-                </div>
-              </div>
-              <div className="stat-box">
-                <span className="stat-icon">🎨</span>
-                <div className="stat-info">
-                  <span className="stat-value">{orchid.color}</span>
-                  <span className="stat-label">Color</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="detail-sections">
-          <section className="info-section">
-            <h2>📋 Detailed Information</h2>
-            <div className="info-grid">
-              <div className="info-card">
-                <span className="info-icon">🆔</span>
-                <div className="info-text">
-                  <span className="info-title">ID</span>
-                  <span className="info-value">{orchid.id}</span>
-                </div>
-              </div>
-
-              <div className="info-card">
-                <span className="info-icon">🏷️</span>
-                <div className="info-text">
-                  <span className="info-title">Category</span>
-                  <span className="info-value">{orchid.category}</span>
-                </div>
-              </div>
-
-              <div className="info-card">
-                <span className="info-icon">📍</span>
-                <div className="info-text">
-                  <span className="info-title">Origin Country</span>
-                  <span className="info-value">{orchid.origin}</span>
-                </div>
-              </div>
-
-              <div className="info-card">
-                <span className="info-icon">🎨</span>
-                <div className="info-text">
-                  <span className="info-title">Primary Color</span>
-                  <span className="info-value">{orchid.color}</span>
-                </div>
-              </div>
-
-              <div className="info-card">
-                <span className="info-icon">✨</span>
-                <div className="info-text">
-                  <span className="info-title">Type</span>
-                  <span className="info-value">
-                    {orchid.isNatural ? 'Natural Species' : 'Hybrid'}
-                  </span>
-                </div>
-              </div>
-
-              <div className="info-card">
-                <span className="info-icon">⭐</span>
-                <div className="info-text">
-                  <span className="info-title">Status</span>
-                  <span className="info-value">
-                    {orchid.isSpecial ? 'Special Collection' : 'Regular'}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="description-section">
-            <h2>📖 About This Orchid</h2>
-            <div className="description-content">
-              <p>
-                The <strong>{orchid.name}</strong> is a {orchid.isNatural ? 'naturally occurring' : 'hybrid'} orchid 
-                species belonging to the <strong>{orchid.category}</strong> genus. This magnificent orchid originates 
-                from <strong>{orchid.origin}</strong>, where it thrives in its natural habitat.
-              </p>
-              <p>
-                Known for its stunning <strong>{orchid.color.toLowerCase()}</strong> coloring, this orchid has 
-                captured the hearts of orchid enthusiasts worldwide. With an impressive rating of 
-                <strong> {orchid.rating} out of 5 stars</strong>, it stands as a testament to its beauty and 
-                appeal among collectors.
-              </p>
-              <p>
-                This orchid has garnered <strong>{orchid.numberOfLike.toLocaleString()} likes</strong> from 
-                our community, making it {orchid.isSpecial ? 'one of our most special and sought-after specimens' : 
-                'a beloved addition to any collection'}.
-              </p>
-              {orchid.isSpecial && (
-                <div className="special-note">
-                  <span className="note-icon">⭐</span>
-                  <p>
-                    <strong>Special Collection:</strong> This orchid is part of our exclusive special collection, 
-                    featuring rare and extraordinary specimens that showcase the pinnacle of orchid beauty.
-                  </p>
-                </div>
+              {orchid.video && (
+                <Card className="shadow border-0 overflow-hidden">
+                  <Card.Header className="bg-primary text-white fw-bold py-3">
+                    📹 Video Presentation
+                  </Card.Header>
+                  <div className="ratio ratio-16x9">
+                    <iframe
+                      src={orchid.video}
+                      title={`${orchid.name} video`}
+                      allowFullScreen
+                      style={{ border: 'none' }}
+                    ></iframe>
+                  </div>
+                </Card>
               )}
             </div>
-          </section>
+          </Col>
+          
+          <Col lg={7}>
+            <Card className="shadow border-0 mb-4">
+              <Card.Body className="p-4">
+                <h1 className="display-5 fw-bold mb-3">{orchid.name}</h1>
+                
+                <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 py-3 border-top border-bottom">
+                  <div className="d-flex align-items-center">
+                    <div className="me-2" style={{ fontSize: '1.5rem' }}>
+                      {renderStars(orchid.rating)}
+                    </div>
+                    <span className="text-muted fs-5">({orchid.rating}/5)</span>
+                  </div>
+                  <div className="d-flex align-items-center">
+                    <FaHeart className="text-danger me-2" size={24} />
+                    <span className="fs-5 fw-bold">{orchid.numberOfLike.toLocaleString()}</span>
+                    <span className="text-muted ms-2">Likes</span>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
 
-          <section className="care-section">
-            <h2>🌱 Care Tips</h2>
-            <div className="care-grid">
-              <div className="care-card">
-                <span className="care-icon">💧</span>
-                <h3>Watering</h3>
-                <p>Water thoroughly when the potting medium is nearly dry. Ensure good drainage to prevent root rot.</p>
+            {/* Lab 4: Tabs Component */}
+            <Card className="shadow border-0">
+              <Tabs defaultActiveKey="info" className="px-3 pt-3">
+            <Tab eventKey="info" title="📋 Information">
+              <Card className="border-0 shadow-sm">
+                <Card.Body>
+                  <ListGroup variant="flush">
+                    <ListGroup.Item>
+                      <Row>
+                        <Col sm={4}><strong>� ID:</strong></Col>
+                        <Col sm={8}>{orchid.id}</Col>
+                      </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Row>
+                        <Col sm={4}><strong>🏷️ Category:</strong></Col>
+                        <Col sm={8}><Badge bg="primary">{orchid.category}</Badge></Col>
+                      </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Row>
+                        <Col sm={4}><strong><FaMapMarkerAlt /> Origin:</strong></Col>
+                        <Col sm={8}>{orchid.origin}</Col>
+                      </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Row>
+                        <Col sm={4}><strong>🎨 Color:</strong></Col>
+                        <Col sm={8}><Badge bg="info" text="dark">{orchid.color}</Badge></Col>
+                      </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Row>
+                        <Col sm={4}><strong>✨ Type:</strong></Col>
+                        <Col sm={8}>
+                          <Badge bg={orchid.isNatural ? 'success' : 'secondary'}>
+                            {orchid.isNatural ? 'Natural Species' : 'Hybrid'}
+                          </Badge>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Row>
+                        <Col sm={4}><strong>⭐ Status:</strong></Col>
+                        <Col sm={8}>
+                          <Badge bg={orchid.isSpecial ? 'warning' : 'secondary'} text="dark">
+                            {orchid.isSpecial ? 'Special Collection' : 'Regular'}
+                          </Badge>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  </ListGroup>
+                </Card.Body>
+              </Card>
+            </Tab>
+
+            <Tab eventKey="description" title="📖 About">
+              <Card className="border-0 shadow-sm">
+                <Card.Body>
+                  {orchid.description ? (
+                    <>
+                      <p className="lead">{orchid.description}</p>
+                      <hr />
+                      <p>
+                        This <strong>{orchid.isNatural ? 'naturally occurring' : 'hybrid'}</strong> orchid 
+                        belongs to the <strong>{orchid.category}</strong> genus and has garnered 
+                        <strong> {orchid.numberOfLike.toLocaleString()} likes</strong> from our community.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p>
+                        The <strong>{orchid.name}</strong> is a {orchid.isNatural ? 'naturally occurring' : 'hybrid'} orchid 
+                        species belonging to the <strong>{orchid.category}</strong> genus. This magnificent orchid originates 
+                        from <strong>{orchid.origin}</strong>, where it thrives in its natural habitat.
+                      </p>
+                      <p>
+                        Known for its stunning <strong>{orchid.color.toLowerCase()}</strong> coloring, this orchid has 
+                        captured the hearts of orchid enthusiasts worldwide. With an impressive rating of 
+                        <strong> {orchid.rating} out of 5 stars</strong>, it stands as a testament to its beauty and 
+                        appeal among collectors.
+                      </p>
+                      <p>
+                        This orchid has garnered <strong>{orchid.numberOfLike.toLocaleString()} likes</strong> from 
+                        our community, making it {orchid.isSpecial ? 'one of our most special and sought-after specimens' : 
+                        'a beloved addition to any collection'}.
+                      </p>
+                    </>
+                  )}
+                  {orchid.isSpecial && (
+                    <div className="alert alert-warning mt-3">
+                      <strong>⭐ Special Collection:</strong> This orchid is part of our exclusive special collection, 
+                      featuring rare and extraordinary specimens.
+                    </div>
+                  )}
+                </Card.Body>
+              </Card>
+            </Tab>
+
+            {/* Lab 7: Feedback Tab */}
+            <Tab eventKey="feedback" title="💬 Feedback">
+              <div className="feedback-section">
+                <Row className="g-4">
+                  <Col lg={12}>
+                    <FeedbackForm 
+                      orchidId={orchid.id}
+                      onSubmit={handleFeedbackSubmit}
+                      existingFeedback={orchid.feedback || []}
+                    />
+                  </Col>
+                  <Col lg={12}>
+                    <FeedbackList 
+                      feedback={orchid.feedback || []}
+                      onDelete={handleFeedbackDelete}
+                    />
+                  </Col>
+                </Row>
               </div>
-              <div className="care-card">
-                <span className="care-icon">☀️</span>
-                <h3>Light</h3>
-                <p>Provide bright, indirect light. Avoid direct sunlight which can burn the leaves.</p>
-              </div>
-              <div className="care-card">
-                <span className="care-icon">🌡️</span>
-                <h3>Temperature</h3>
-                <p>Maintain temperatures between 60-80°F (15-27°C) with good air circulation.</p>
-              </div>
-              <div className="care-card">
-                <span className="care-icon">💨</span>
-                <h3>Humidity</h3>
-                <p>Keep humidity levels around 50-70% for optimal growth and flowering.</p>
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
+            </Tab>
+          </Tabs>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };

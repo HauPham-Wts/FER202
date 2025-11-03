@@ -1,4 +1,118 @@
 /* About Page Styles (Lab 3/4) */
+
+/* Dark Mode for React Bootstrap Components */
+body.dark-mode {
+  background-color: #1a202c;
+}
+
+body.dark-mode .container {
+  color: #e2e8f0;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode .display-4 {
+  color: #f7fafc !important;
+}
+
+body.dark-mode p {
+  color: #e2e8f0 !important;
+}
+
+body.dark-mode .text-muted {
+  color: #cbd5e0 !important;
+}
+
+body.dark-mode .lead {
+  color: #e2e8f0 !important;
+}
+
+body.dark-mode .card {
+  background: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+body.dark-mode .card .card-title {
+  color: #f7fafc !important;
+}
+
+body.dark-mode .card .card-text {
+  color: #e2e8f0 !important;
+}
+
+body.dark-mode .card-body h2 {
+  color: #f7fafc !important;
+}
+
+body.dark-mode .card-body p {
+  color: #e2e8f0 !important;
+}
+
+body.dark-mode .bg-primary {
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%) !important;
+}
+
+body.dark-mode .text-primary {
+  color: #63b3ed !important;
+}
+
+body.dark-mode .text-success {
+  color: #68d391 !important;
+}
+
+body.dark-mode .text-warning {
+  color: #f6ad55 !important;
+}
+
+body.dark-mode .text-danger {
+  color: #fc8181 !important;
+}
+
+body.dark-mode .border-primary {
+  border-color: #4299e1 !important;
+}
+
+body.dark-mode .border-success {
+  border-color: #48bb78 !important;
+}
+
+body.dark-mode .border-danger {
+  border-color: #f56565 !important;
+}
+
+body.dark-mode .border-warning {
+  border-color: #ed8936 !important;
+}
+
+body.dark-mode .shadow-sm,
+body.dark-mode .shadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.dark-mode ul,
+body.dark-mode li {
+  color: #e2e8f0 !important;
+}
+
+body.dark-mode ul li strong {
+  color: #f7fafc !important;
+}
+
+body.dark-mode .list-unstyled li {
+  color: #e2e8f0 !important;
+}
+
+body.dark-mode .img-fluid {
+  opacity: 0.9;
+  border-color: #4a5568;
+}
+
+body.dark-mode .rounded {
+  border: 1px solid #4a5568;
+}
+
 .about-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

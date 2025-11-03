@@ -1,4 +1,6 @@
 // Lab 1 - Data for 16 Orchids
+// Lab 4 - Added video field
+// Lab 7 - Added feedback field with sample data
 export const orchids = [
   {
     id: '1',
@@ -10,7 +12,23 @@ export const orchids = [
     color: 'Pink',
     numberOfLike: 192,
     origin: 'Taiwan',
-    category: 'Cattleya'
+    category: 'Cattleya',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Taichung Beauty is a stunning Cattleya hybrid from Taiwan, known for its vibrant pink blooms and excellent fragrance. This orchid features large, showy flowers with ruffled petals and a delicate perfume that fills the room.',
+    feedback: [
+      {
+        rating: 5,
+        comment: 'Awesome orchid!!! The fragrance is absolutely divine.',
+        author: 'admin@gmail.com',
+        date: '2024-10-16T17:57:28.556094Z'
+      },
+      {
+        rating: 4,
+        comment: 'Beautiful color but requires careful attention to watering.',
+        author: 'user@example.com',
+        date: '2024-11-01T10:30:00.000000Z'
+      }
+    ]
   },
   {
     id: '2',
@@ -18,11 +36,14 @@ export const orchids = [
     rating: 5,
     isSpecial: true,
     isNatural: true,
-    image: 'https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_phalaenopsis-orchid_variant_small_cream_1024x1024.jpg',
+    image: 'https://www.verdissimo.com/wp-content/uploads/2023/08/Verdissimo_flores_bonitas_CONT_09.jpg',
     color: 'White',
     numberOfLike: 245,
     origin: 'Philippines',
-    category: 'Phalaenopsis'
+    category: 'Phalaenopsis',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'The Phalaenopsis, also known as Moth Orchid, is one of the most popular orchids worldwide. Native to Philippines, it produces elegant white flowers that can bloom for months. Perfect for beginners due to its easy care requirements.',
+    feedback: []
   },
   {
     id: '3',
@@ -30,11 +51,13 @@ export const orchids = [
     rating: 4,
     isSpecial: false,
     isNatural: true,
-    image: 'https://orchidrepublic.com/cdn/shop/products/Blue-Dendrobium-Orchid_grande.jpg',
+    image: 'https://images.contentstack.io/v3/assets/bltcedd8dbd5891265b/bltb0fc8c3edd349106/6668df63a62e8d63e6e051b2/beautiful-flowers-dahlia.jpg?q=70&width=3840&auto=webp',
     color: 'Blue',
     numberOfLike: 178,
     origin: 'Thailand',
-    category: 'Dendrobium'
+    category: 'Dendrobium',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Dendrobium Blue is a rare and exotic orchid from Thailand. Its stunning blue petals are a result of careful breeding, creating a truly unique addition to any collection. Thrives in warm, humid environments.'
   },
   {
     id: '4',
@@ -42,11 +65,13 @@ export const orchids = [
     rating: 5,
     isSpecial: true,
     isNatural: true,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Vanda_coerulea_Griff._ex_Lindl._%28Orchidaceae%29_%283%29.jpg/800px-Vanda_coerulea_Griff._ex_Lindl._%28Orchidaceae%29_%283%29.jpg',
+    image: 'https://www.verdissimo.com/wp-content/uploads/2023/08/Verdissimo_flores_bonitas_CONT_17.jpg',
     color: 'Purple',
     numberOfLike: 312,
     origin: 'India',
-    category: 'Vanda'
+    category: 'Vanda',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Vanda Coerulea, the Blue Orchid of India, is prized for its magnificent purple-blue flowers. This epiphytic orchid grows naturally in the Himalayan region and produces long-lasting blooms with intricate patterns.'
   },
   {
     id: '5',
@@ -54,11 +79,13 @@ export const orchids = [
     rating: 4,
     isSpecial: false,
     isNatural: false,
-    image: 'https://orchideria.com/wp-content/uploads/2019/09/Oncidium-Orchid-Care-683x1024.jpg',
+    image: 'https://images.contentstack.io/v3/assets/bltcedd8dbd5891265b/blt5f18c2119ce26485/6668df65db90945e0caf9be6/beautiful-flowers-lotus.jpg?q=70&width=3840&auto=webp',
     color: 'Yellow',
     numberOfLike: 156,
     origin: 'Brazil',
-    category: 'Oncidium'
+    category: 'Oncidium',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'The Oncidium Dancing Lady orchid gets its name from the flower\'s resemblance to a lady in a flowing dress. Native to Brazil, it produces cascading sprays of cheerful yellow blooms that dance in the breeze.'
   },
   {
     id: '6',
@@ -66,11 +93,13 @@ export const orchids = [
     rating: 5,
     isSpecial: true,
     isNatural: false,
-    image: 'https://i.etsystatic.com/20361865/r/il/5c0acd/2799184297/il_1140xN.2799184297_69l5.jpg',
+    image: 'https://www.ediblearrangements.com/blog/wp-content/uploads/2021/11/Lotus-min.jpg',
     color: 'Golden',
     numberOfLike: 289,
     origin: 'China',
-    category: 'Cymbidium'
+    category: 'Cymbidium',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Cymbidium Golden is a prestigious orchid from China, featuring large golden-yellow flowers with incredible longevity. This hybrid is perfect for cut flowers and arrangements, lasting weeks in bloom.'
   },
   {
     id: '7',
@@ -78,11 +107,13 @@ export const orchids = [
     rating: 4,
     isSpecial: false,
     isNatural: true,
-    image: 'https://www.orchidweb.com/images/miltoniopsis_santanaei_red_sm.jpg',
+    image: 'https://static0.backyardbossimages.com/wordpress/wp-content/uploads/2024/04/himalayan-blue-poppy.jpg',
     color: 'Red',
     numberOfLike: 167,
     origin: 'Colombia',
-    category: 'Miltonia'
+    category: 'Miltonia',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Miltonia Sunset from Colombia is known as the Pansy Orchid due to its flat, pansy-like flowers. The rich red coloration resembles a sunset sky, making it a favorite among collectors.'
   },
   {
     id: '8',
@@ -90,11 +121,13 @@ export const orchids = [
     rating: 5,
     isSpecial: true,
     isNatural: true,
-    image: 'https://orchideen-wichmann.de/images/product_images/popup_images/5714_0.jpg',
+    image: 'https://floweraura-blog-img.s3.ap-south-1.amazonaws.com/flower-gifts-blog/water-lily-most-beautiful-flowers-in-the-world.jpg',
     color: 'Green',
     numberOfLike: 201,
     origin: 'Vietnam',
-    category: 'Paphiopedilum'
+    category: 'Paphiopedilum',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'The Paphiopedilum Slipper Orchid from Vietnam is distinguished by its unique pouch-shaped lip. This terrestrial orchid features striking green petals with intricate markings, making each flower a work of art.'
   },
   {
     id: '9',
@@ -102,11 +135,13 @@ export const orchids = [
     rating: 3,
     isSpecial: false,
     isNatural: false,
-    image: 'https://worldoffloweringplants.com/wp-content/uploads/2019/08/Brassia-verrucosa-Spider-Orchid2.jpg',
+    image: 'https://freshknots.in/wp-content/uploads/2023/03/rose.png.webp',
     color: 'Yellow-Green',
     numberOfLike: 134,
     origin: 'Peru',
-    category: 'Brassia'
+    category: 'Brassia',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Brassia Spider Orchid from Peru earns its name from the long, spidery petals that create a dramatic appearance. The yellow-green flowers have a sweet fragrance and can span up to 12 inches across.'
   },
   {
     id: '10',
@@ -114,11 +149,13 @@ export const orchids = [
     rating: 4,
     isSpecial: false,
     isNatural: true,
-    image: 'https://i.etsystatic.com/23746108/r/il/501d82/2545166937/il_1588xN.2545166937_7p5s.jpg',
+    image: 'https://cdn.pixabay.com/photo/2019/03/12/17/19/rose-flower-4051289_640.jpg',
     color: 'Purple-White',
     numberOfLike: 198,
     origin: 'Brazil',
-    category: 'Zygopetalum'
+    category: 'Zygopetalum',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Zygopetalum Fragrant is prized for its intense, sweet fragrance that fills entire rooms. The purple and white blooms feature intricate patterns and can last for weeks, making it a collector\'s favorite.'
   },
   {
     id: '11',
@@ -126,11 +163,13 @@ export const orchids = [
     rating: 5,
     isSpecial: true,
     isNatural: true,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cattleya_labiata_-_Edwards_vol_33_pl_3998_%281847%29.jpg/800px-Cattleya_labiata_-_Edwards_vol_33_pl_3998_%281847%29.jpg',
+    image: 'https://www.mystart.com/blog/wp-content/uploads/Flowers_56e2f4da40cee48007ee8c69.jpeg',
     color: 'Lavender',
     numberOfLike: 276,
     origin: 'Venezuela',
-    category: 'Cattleya'
+    category: 'Cattleya',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Cattleya Labata from Venezuela is the queen of orchids, featuring massive lavender blooms with a captivating fragrance. This species orchid is the national flower of Venezuela and Colombia.'
   },
   {
     id: '12',
@@ -138,11 +177,13 @@ export const orchids = [
     rating: 4,
     isSpecial: false,
     isNatural: true,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Maxillaria_tenuifolia_Orchi_001.jpg/800px-Maxillaria_tenuifolia_Orchi_001.jpg',
+    image: 'https://10mosttoday.com/wp-content/uploads/2020/10/Bird-of-Paradise-scaled.jpg',
     color: 'Dark Red',
     numberOfLike: 143,
     origin: 'Mexico',
-    category: 'Maxillaria'
+    category: 'Maxillaria',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Maxillaria Tenuifolia, also known as Coconut Orchid, emits a strong coconut fragrance. Native to Mexico, its dark red flowers are small but numerous, blooming throughout the year.'
   },
   {
     id: '13',
@@ -150,11 +191,13 @@ export const orchids = [
     rating: 3,
     isSpecial: false,
     isNatural: true,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Ludisia_discolor_1.jpg/800px-Ludisia_discolor_1.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdIBuL5NyJTpc-b4tS2TpUwgpXq6MfWTKE_w&s',
     color: 'White',
     numberOfLike: 112,
     origin: 'Myanmar',
-    category: 'Ludisia'
+    category: 'Ludisia',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Ludisia Discolor, the Jewel Orchid from Myanmar, is grown more for its stunning foliage than flowers. The deep burgundy leaves with pink veining are its main attraction, though it produces delicate white blooms.'
   },
   {
     id: '14',
@@ -162,11 +205,13 @@ export const orchids = [
     rating: 4,
     isSpecial: true,
     isNatural: true,
-    image: 'https://d2seqvvyy3b8p2.cloudfront.net/9f89c633be99d5df37eb355ddc1911f3.jpg',
+    image: 'https://www.mydomaine.com/thmb/JHucqMjGl1jYdB4pLJ35DnkBp_I=/700x0/filters:no_upscale():strip_icc()/cdn.cliqueinc.com__cache__posts__253245__most-beautiful-flowers-253245-1522430488364-main.700x0c-a78967ab454547bb9d890dadd9f9e508.jpg',
     color: 'Orange',
     numberOfLike: 187,
     origin: 'Ecuador',
-    category: 'Masdevallia'
+    category: 'Masdevallia',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Masdevallia Infracta from Ecuador thrives in cool, misty mountain conditions. Its vibrant orange tubular flowers are perfectly adapted for hummingbird pollination, creating a stunning display.'
   },
   {
     id: '15',
@@ -174,11 +219,13 @@ export const orchids = [
     rating: 4,
     isSpecial: false,
     isNatural: false,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Epidendrum_radicans_Orchi_02.jpg/800px-Epidendrum_radicans_Orchi_02.jpg',
+    image: 'https://images.contentstack.io/v3/assets/bltcedd8dbd5891265b/blt628c4ca0754c7ceb/6668df69eca9a676ee3250a8/beautiful-flowers-lily.jpg?q=70&width=3840&auto=webp',
     color: 'Coral',
     numberOfLike: 159,
     origin: 'Costa Rica',
-    category: 'Epidendrum'
+    category: 'Epidendrum',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Epidendrum Pacific from Costa Rica is a reed-stem orchid producing clusters of coral-colored flowers. Easy to grow and prolific bloomer, making it perfect for outdoor gardens in tropical climates.'
   },
   {
     id: '16',
@@ -186,10 +233,12 @@ export const orchids = [
     rating: 5,
     isSpecial: true,
     isNatural: true,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Dracula_simia_%28Luer%29_Luer%2C_Selbyana_2-_34_%281978%29_%2815584667880%29.jpg/800px-Dracula_simia_%28Luer%29_Luer%2C_Selbyana_2-_34_%281978%29_%2815584667880%29.jpg',
+    image: 'https://cdn.shopify.com/s/files/1/1634/9541/files/Lotus_1024x1024.png?v=1646353476',
     color: 'Brown-White',
     numberOfLike: 421,
     origin: 'Ecuador',
-    category: 'Dracula'
+    category: 'Dracula',
+    video: 'https://www.youtube.com/embed/m2mBP5M8pak',
+    description: 'Dracula Simia, the Monkey Face Orchid, is famous for its uncanny resemblance to a monkey\'s face. Found in Ecuador\'s cloud forests at high elevations, this rare orchid is a true marvel of nature.'
   }
 ];

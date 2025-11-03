@@ -1,5 +1,7 @@
-// Contact Page (Lab 3)
+// Contact Page (Lab 3 & Lab 4 - Bootstrap Form)
 import { useState } from 'react';
+import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaFacebook, FaInstagram, FaTwitter, FaPinterest, FaPaperPlane } from 'react-icons/fa';
 import './Contact.css';
 
 const Contact = () => {
@@ -11,6 +13,7 @@ const Contact = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [validated, setValidated] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -21,7 +24,16 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+      setValidated(true);
+      return;
+    }
+
     setSubmitted(true);
+    setValidated(false);
     setTimeout(() => {
       setSubmitted(false);
       setFormData({ name: '', email: '', subject: '', message: '' });
@@ -30,132 +42,188 @@ const Contact = () => {
 
   return (
     <div className="contact-page">
-      <div className="contact-container">
-        <header className="contact-header">
-          <h1 className="contact-title">📬 Get In Touch</h1>
-          <p className="contact-subtitle">
+      <Container className="py-5">
+        <div className="text-center mb-5">
+          <h1 className="display-4 fw-bold mb-3">📬 Get In Touch</h1>
+          <p className="lead text-muted">
             Have questions about our orchids? We'd love to hear from you!
           </p>
-        </header>
-
-        <div className="contact-content">
-          <div className="contact-info">
-            <h2>Contact Information</h2>
-            
-            <div className="info-item">
-              <span className="info-icon">📍</span>
-              <div className="info-details">
-                <h3>Address</h3>
-                <p>123 Orchid Garden Street<br />Paradise City, PC 12345</p>
-              </div>
-            </div>
-
-            <div className="info-item">
-              <span className="info-icon">📞</span>
-              <div className="info-details">
-                <h3>Phone</h3>
-                <p>+1 (555) 123-4567</p>
-              </div>
-            </div>
-
-            <div className="info-item">
-              <span className="info-icon">✉️</span>
-              <div className="info-details">
-                <h3>Email</h3>
-                <p>info@orchidparadise.com</p>
-              </div>
-            </div>
-
-            <div className="info-item">
-              <span className="info-icon">🕐</span>
-              <div className="info-details">
-                <h3>Business Hours</h3>
-                <p>Monday - Friday: 9:00 AM - 6:00 PM<br />
-                   Saturday: 10:00 AM - 4:00 PM<br />
-                   Sunday: Closed</p>
-              </div>
-            </div>
-
-            <div className="social-links">
-              <h3>Follow Us</h3>
-              <div className="social-icons">
-                <a href="#" className="social-icon">📘</a>
-                <a href="#" className="social-icon">📷</a>
-                <a href="#" className="social-icon">🐦</a>
-                <a href="#" className="social-icon">📌</a>
-              </div>
-            </div>
-          </div>
-
-          <div className="contact-form-wrapper">
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <h2>Send Us a Message</h2>
-              
-              <div className="form-group">
-                <label htmlFor="name">Name *</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  placeholder="Your full name"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="email">Email *</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  placeholder="your.email@example.com"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="subject">Subject *</label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  placeholder="What is this about?"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="message">Message *</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows="6"
-                  placeholder="Tell us more..."
-                ></textarea>
-              </div>
-
-              <button type="submit" className="submit-button">
-                {submitted ? '✓ Message Sent!' : 'Send Message'}
-              </button>
-
-              {submitted && (
-                <div className="success-message">
-                  Thank you for contacting us! We'll get back to you soon.
-                </div>
-              )}
-            </form>
-          </div>
         </div>
-      </div>
+
+        <Row className="g-4">
+          {/* Contact Information */}
+          <Col lg={4}>
+            <Card className="h-100 shadow-sm border-0">
+              <Card.Body>
+                <h4 className="mb-4">Contact Information</h4>
+                
+                <div className="mb-4">
+                  <div className="d-flex align-items-start mb-3">
+                    <FaMapMarkerAlt className="text-primary me-3 mt-1" size={24} />
+                    <div>
+                      <h6 className="mb-1">Address</h6>
+                      <p className="text-muted mb-0">
+                        Ho Chi Minh City<br />
+                        Viet Nam
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="d-flex align-items-start mb-3">
+                    <FaPhone className="text-primary me-3 mt-1" size={24} />
+                    <div>
+                      <h6 className="mb-1">Phone</h6>
+                      <p className="text-muted mb-0">+84 (123) 456-789</p>
+                    </div>
+                  </div>
+
+                  <div className="d-flex align-items-start mb-3">
+                    <FaEnvelope className="text-primary me-3 mt-1" size={24} />
+                    <div>
+                      <h6 className="mb-1">Email</h6>
+                      <p className="text-muted mb-0">info@orchidparadise.com</p>
+                    </div>
+                  </div>
+
+                  <div className="d-flex align-items-start mb-3">
+                    <FaClock className="text-primary me-3 mt-1" size={24} />
+                    <div>
+                      <h6 className="mb-1">Business Hours</h6>
+                      <p className="text-muted mb-0">
+                        Monday - Friday: 9:00 AM - 6:00 PM<br />
+                        Saturday: 10:00 AM - 4:00 PM<br />
+                        Sunday: Closed
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h6 className="mb-3">Follow Us</h6>
+                  <div className="d-flex gap-2">
+                    <Button variant="outline-primary" size="sm" className="rounded-circle" style={{ width: '40px', height: '40px' }}>
+                      <FaFacebook />
+                    </Button>
+                    <Button variant="outline-danger" size="sm" className="rounded-circle" style={{ width: '40px', height: '40px' }}>
+                      <FaInstagram />
+                    </Button>
+                    <Button variant="outline-info" size="sm" className="rounded-circle" style={{ width: '40px', height: '40px' }}>
+                      <FaTwitter />
+                    </Button>
+                    <Button variant="outline-secondary" size="sm" className="rounded-circle" style={{ width: '40px', height: '40px' }}>
+                      <FaPinterest />
+                    </Button>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          {/* Contact Form */}
+          <Col lg={8}>
+            <Card className="shadow-sm border-0">
+              <Card.Body className="p-4">
+                <h4 className="mb-4">Send Us a Message</h4>
+                
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="formName">
+                        <Form.Label>Name <span className="text-danger">*</span></Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          placeholder="Your full name"
+                          required
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          Please provide your name.
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="formEmail">
+                        <Form.Label>Email <span className="text-danger">*</span></Form.Label>
+                        <Form.Control
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="your.email@example.com"
+                          required
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          Please provide a valid email.
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Form.Group className="mb-3" controlId="formSubject">
+                    <Form.Label>Subject <span className="text-danger">*</span></Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="What is this about?"
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a subject.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formMessage">
+                    <Form.Label>Message <span className="text-danger">*</span></Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows={6}
+                      placeholder="Tell us more..."
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a message.
+                    </Form.Control.Feedback>
+                    <Form.Text className="text-muted">
+                      We'll get back to you within 24-48 hours.
+                    </Form.Text>
+                  </Form.Group>
+
+                  <Button 
+                    variant={submitted ? 'success' : 'primary'} 
+                    type="submit" 
+                    size="lg" 
+                    className="w-100"
+                    disabled={submitted}
+                  >
+                    {submitted ? (
+                      <>✓ Message Sent!</>
+                    ) : (
+                      <>
+                        <FaPaperPlane className="me-2" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+
+                  {submitted && (
+                    <Alert variant="success" className="mt-3 mb-0">
+                      <strong>Thank you!</strong> Your message has been sent successfully. We'll get back to you soon.
+                    </Alert>
+                  )}
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };

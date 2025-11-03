@@ -1,0 +1,455 @@
+// Profile Page SCSS - Lab 5
+// Demonstrating SCSS features: variables, nesting, mixins, functions, extends
+@use './variables' as *;
+@use './mixins' as *;
+@use 'sass:color';
+
+// SCSS Functions (Updated to use modern color functions)
+@function lighten-color($color, $amount: 10%) {
+  @return color.adjust($color, $lightness: $amount);
+}
+
+@function darken-color($color, $amount: 10%) {
+  @return color.adjust($color, $lightness: -$amount);
+}
+
+// Placeholder Selector (Extend)
+%section-base {
+  padding: $space-16 $space-6;
+  
+  @include responsive(md) {
+    padding: $space-20 $space-8;
+  }
+}
+
+%text-gradient {
+  @include gradient-text($gradient-primary);
+}
+
+// Profile Page Styles
+.profile-page {
+  min-height: 100vh;
+  background: $gradient-ocean;
+  
+  // Hero Section with Nesting
+  .profile-hero {
+    @extend %section-base;
+    @include flex-center;
+    flex-direction: column;
+    text-align: center;
+    color: $white;
+    position: relative;
+    overflow: hidden;
+    
+    // Animated Background Circles
+    &::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba($white, 0.1);
+      border-radius: $radius-full;
+      top: -100px;
+      left: -100px;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba($white, 0.1);
+      border-radius: $radius-full;
+      bottom: -50px;
+      right: -50px;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+    
+    .profile-avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: $radius-full;
+      border: 5px solid $white;
+      box-shadow: $shadow-2xl;
+      margin-bottom: $space-6;
+      position: relative;
+      z-index: 10;
+      @include hover-scale(1.1);
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: $radius-full;
+      }
+    }
+    
+    .profile-name {
+      font-size: $font-size-5xl;
+      font-weight: $font-weight-extrabold;
+      margin-bottom: $space-3;
+      position: relative;
+      z-index: 10;
+      
+      @include responsive(md) {
+        font-size: $font-size-6xl;
+      }
+    }
+    
+    .profile-title {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-medium;
+      color: rgba($white, 0.9);
+      margin-bottom: $space-8;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .profile-social {
+      @include flex-center;
+      gap: $space-4;
+      position: relative;
+      z-index: 10;
+      
+      .social-link {
+        @include button(rgba($white, 0.2), $white);
+        padding: $space-3;
+        border-radius: $radius-full;
+        width: 48px;
+        height: 48px;
+        @include flex-center;
+        
+        &:hover {
+          background: $white;
+          color: $primary-color;
+        }
+        
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+  
+  // About Section
+  .profile-about {
+    @extend %section-base;
+    background: $white;
+    
+    .section-title {
+      font-size: $font-size-4xl;
+      font-weight: $font-weight-extrabold;
+      text-align: center;
+      margin-bottom: $space-12;
+      @extend %text-gradient;
+    }
+    
+    .about-content {
+      max-width: 900px;
+      margin: 0 auto;
+      @include grid(1, $space-8);
+      
+      @include responsive(md) {
+        @include grid(2, $space-10);
+      }
+      
+      .about-card {
+        @include card;
+        
+        .card-icon {
+          width: 60px;
+          height: 60px;
+          background: $gradient-primary;
+          border-radius: $radius-xl;
+          @include flex-center;
+          color: $white;
+          font-size: $font-size-3xl;
+          margin-bottom: $space-4;
+        }
+        
+        .card-title {
+          font-size: $font-size-2xl;
+          font-weight: $font-weight-bold;
+          color: $gray-800;
+          margin-bottom: $space-3;
+        }
+        
+        .card-description {
+          font-size: $font-size-base;
+          color: $gray-600;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+  
+  // Skills Section
+  .profile-skills {
+    @extend %section-base;
+    background: $gray-100;
+    
+    .section-title {
+      @extend %text-gradient;
+      font-size: $font-size-4xl;
+      font-weight: $font-weight-extrabold;
+      text-align: center;
+      margin-bottom: $space-12;
+    }
+    
+    .skills-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      
+      .skill-category {
+        margin-bottom: $space-10;
+        
+        .category-title {
+          font-size: $font-size-2xl;
+          font-weight: $font-weight-bold;
+          color: $gray-800;
+          margin-bottom: $space-6;
+        }
+        
+        .skills-grid {
+          @include grid(2, $space-4);
+          
+          @include responsive(md) {
+            @include grid(3, $space-4);
+          }
+          
+          @include responsive(lg) {
+            @include grid(4, $space-4);
+          }
+          
+          .skill-item {
+            @include badge($white, $gray-800);
+            padding: $space-3 $space-5;
+            box-shadow: $shadow-sm;
+            transition: all $transition-base $transition-ease;
+            
+            &:hover {
+              background: $gradient-primary;
+              color: $white;
+              transform: translateY(-2px);
+              box-shadow: $shadow-md;
+            }
+            
+            // Using loop for skill levels
+            @for $i from 1 through 5 {
+              &.level-#{$i} {
+                opacity: 0.5 + ($i * 0.1);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Stats Section
+  .profile-stats {
+    @extend %section-base;
+    background: $white;
+    
+    .stats-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      @include grid(1, $space-6);
+      
+      @include responsive(sm) {
+        @include grid(2, $space-6);
+      }
+      
+      @include responsive(lg) {
+        @include grid(4, $space-6);
+      }
+      
+      .stat-card {
+        @include card($space-8, $shadow-lg);
+        text-align: center;
+        background: $gradient-primary;
+        color: $white;
+        
+        .stat-number {
+          font-size: $font-size-5xl;
+          font-weight: $font-weight-extrabold;
+          line-height: 1;
+          margin-bottom: $space-3;
+        }
+        
+        .stat-label {
+          font-size: $font-size-sm;
+          font-weight: $font-weight-medium;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          opacity: 0.9;
+        }
+        
+        // Using each for different colors
+        @each $name, $color in (success: $success-color, warning: $warning-color, info: $info-color, danger: $danger-color) {
+          &.stat-#{$name} {
+            background: linear-gradient(135deg, lighten-color($color, 10%) 0%, darken-color($color, 10%) 100%);
+          }
+        }
+      }
+    }
+  }
+  
+  // Contact Section
+  .profile-contact {
+    @extend %section-base;
+    background: $gradient-sunset;
+    text-align: center;
+    color: $white;
+    
+    .section-title {
+      font-size: $font-size-4xl;
+      font-weight: $font-weight-extrabold;
+      margin-bottom: $space-6;
+    }
+    
+    .section-description {
+      font-size: $font-size-xl;
+      margin-bottom: $space-8;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.95;
+    }
+    
+    .contact-buttons {
+      @include flex-center;
+      gap: $space-4;
+      flex-wrap: wrap;
+      
+      .contact-button {
+        @include button($white, $gray-800);
+        padding: $space-4 $space-8;
+        font-size: $font-size-lg;
+        
+        &:hover {
+          background: $gray-100;
+        }
+        
+        &.primary {
+          background: $gray-800;
+          color: $white;
+          
+          &:hover {
+            background: $gray-900;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Animation Classes
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+  
+  @for $i from 1 through 10 {
+    &.delay-#{$i} {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+}
+
+// Dark Mode Support (Manual Toggle)
+body.dark-mode {
+  .profile-page {
+    .profile-about,
+    .profile-stats {
+      background: $gray-900;
+      color: $white;
+      
+      .about-card {
+        background: $gray-800;
+        
+        .card-title {
+          color: $white;
+        }
+        
+        .card-description {
+          color: $gray-400;
+        }
+      }
+      
+      .category-title {
+        color: $white;
+      }
+    }
+    
+    .profile-skills {
+      background: $gray-800;
+      
+      .category-title {
+        color: $white;
+      }
+      
+      .skill-item {
+        background: $gray-700;
+        color: $white;
+      }
+    }
+  }
+}
+
+// Dark Mode Support (Auto)
+@media (prefers-color-scheme: dark) {
+  .profile-page {
+    .profile-about,
+    .profile-stats {
+      background: $gray-900;
+      color: $white;
+      
+      .about-card {
+        background: $gray-800;
+        
+        .card-title {
+          color: $white;
+        }
+        
+        .card-description {
+          color: $gray-400;
+        }
+      }
+      
+      .category-title {
+        color: $white;
+      }
+    }
+    
+    .profile-skills {
+      background: $gray-800;
+      
+      .skill-item {
+        background: $gray-700;
+        color: $white;
+      }
+    }
+  }
+}

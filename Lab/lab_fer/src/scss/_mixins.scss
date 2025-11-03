@@ -1,0 +1,180 @@
+// SCSS Mixins - Lab 5
+@use 'variables' as *;
+@use 'sass:color';
+
+// Flexbox Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Grid Mixin
+@mixin grid($columns: 3, $gap: $space-6) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+// Responsive Breakpoint Mixin
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: $breakpoint-sm) { @content; }
+  }
+  @else if $breakpoint == md {
+    @media (min-width: $breakpoint-md) { @content; }
+  }
+  @else if $breakpoint == lg {
+    @media (min-width: $breakpoint-lg) { @content; }
+  }
+  @else if $breakpoint == xl {
+    @media (min-width: $breakpoint-xl) { @content; }
+  }
+  @else if $breakpoint == 2xl {
+    @media (min-width: $breakpoint-2xl) { @content; }
+  }
+}
+
+// Button Mixin
+@mixin button($bg-color: $primary-color, $text-color: $white) {
+  padding: $space-3 $space-6;
+  background: $bg-color;
+  color: $text-color;
+  border: none;
+  border-radius: $radius-lg;
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-base;
+  cursor: pointer;
+  transition: all $transition-base $transition-ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+    filter: brightness(1.1);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Card Mixin
+@mixin card($padding: $space-6, $shadow: $shadow-md) {
+  background: $white;
+  padding: $padding;
+  border-radius: $radius-xl;
+  box-shadow: $shadow;
+  transition: all $transition-base $transition-ease;
+  
+  &:hover {
+    box-shadow: $shadow-xl;
+    transform: translateY(-4px);
+  }
+}
+
+// Text Truncate
+@mixin truncate($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// Gradient Text
+@mixin gradient-text($gradient: $gradient-primary) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Glassmorphism Effect
+@mixin glass($blur: 10px, $opacity: 0.15) {
+  background: rgba($white, $opacity);
+  backdrop-filter: blur($blur);
+  border: 1px solid rgba($white, 0.2);
+}
+
+// Hover Scale
+@mixin hover-scale($scale: 1.05) {
+  transition: transform $transition-base $transition-ease;
+  
+  &:hover {
+    transform: scale($scale);
+  }
+}
+
+// Absolute Center
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Badge Mixin
+@mixin badge($bg-color: $primary-color, $text-color: $white) {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-4;
+  background: $bg-color;
+  color: $text-color;
+  border-radius: $radius-full;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+}
+
+// Loading Animation
+@mixin loading-spinner($size: 40px, $color: $primary-color) {
+  width: $size;
+  height: $size;
+  border: 4px solid rgba($color, 0.2);
+  border-top-color: $color;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Scrollbar Styling
+@mixin custom-scrollbar($width: 8px, $thumb-color: $gray-400) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $gray-200;
+    border-radius: $radius-full;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: $radius-full;
+    
+    &:hover {
+      background: color.adjust($thumb-color, $lightness: -10%);
+    }
+  }
+}

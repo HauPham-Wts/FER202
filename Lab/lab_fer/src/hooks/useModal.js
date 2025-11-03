@@ -8,15 +8,13 @@ export const useModal = () => {
   const openModal = (orchid) => {
     setSelectedOrchid(orchid);
     setIsOpen(true);
-    // Prevent body scroll when modal is open
-    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setIsOpen(false);
     setSelectedOrchid(null);
-    // Restore body scroll
-    document.body.style.overflow = 'unset';
+    // Scroll to top when modal closes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return {

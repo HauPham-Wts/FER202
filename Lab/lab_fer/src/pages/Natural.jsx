@@ -1,13 +1,40 @@
 // Natural Orchids Page (Lab 4 - shows isNatural = true)
-import { orchids } from '../data/ListOfOrchids';
+// Lab 6: Updated to use Redux for data fetching
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOrchids } from '../redux/orchidsSlice';
 import OrchidCard from '../components/OrchidCard';
 import { useModal } from '../hooks/useModal';
 import OrchidModal from '../components/OrchidModal';
 import './Natural.css';
 
 const Natural = () => {
+  const dispatch = useDispatch();
+  const { orchids, loading } = useSelector((state) => state.orchids);
   const { isOpen, selectedOrchid, openModal, closeModal } = useModal();
   const naturalOrchids = orchids.filter(orchid => orchid.isNatural);
+
+  useEffect(() => {
+    if (orchids.length === 0) {
+      dispatch(fetchOrchids());
+    }
+  }, [dispatch, orchids.length]);
+
+  if (loading) {
+    return (
+      <div className="natural-page">
+        <div className="natural-container">
+          <header className="natural-header">
+            <h1 className="natural-title">
+              <span className="natural-icon">🌿</span>
+              Loading Natural Species...
+              <span className="natural-icon">🌿</span>
+            </h1>
+          </header>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="natural-page">

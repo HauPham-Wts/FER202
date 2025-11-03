@@ -1,0 +1,46 @@
+/* Feedback List Styles - Lab 7 */
+.feedback-list-card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.feedback-item {
+  padding: 1.25rem;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.feedback-item:hover {
+  background-color: #f8f9fa;
+  border-left-color: #0d6efd;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.star-filled {
+  color: #ffc107;
+  font-size: 1.1rem;
+}
+
+.star-empty {
+  color: #ddd;
+  font-size: 1.1rem;
+}
+
+.comment-text {
+  color: #495057;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Fix badge positioning */
+.feedback-item .badge {
+  position: static !important;
+  display: inline-block !important;
+  vertical-align: baseline !important;
+}
