@@ -88,14 +88,17 @@ const Navigation = () => {
                   {currentUser.displayName || 'User'}
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.ItemText>
-                    <small className="text-muted">{currentUser.email}</small>
-                    {isAdmin && (
-                      <div>
-                        <span className="badge bg-danger mt-1">Admin</span>
-                      </div>
-                    )}
+                <Dropdown.Menu style={{ minWidth: '280px' }}>
+                  {isAdmin && (
+                    <Dropdown.ItemText>
+                      <span className="badge bg-danger" style={{ display: 'block', width: 'fit-content' }}>Admin</span>
+                    </Dropdown.ItemText>
+                  )}
+                  {isAdmin && <Dropdown.Divider />}
+                  <Dropdown.ItemText style={{ whiteSpace: 'normal' }}>
+                    <small className="text-muted" style={{ display: 'block', wordBreak: 'break-word' }}>
+                      {currentUser.email}
+                    </small>
                   </Dropdown.ItemText>
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={handleLogout}>

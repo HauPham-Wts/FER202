@@ -195,3 +195,22 @@ body.dark-mode .theme-toggle-nav:hover {
     font-size: 12px;
   }
 }
+
+/* Fix dropdown badge positioning - Lab 7 */
+.dropdown-menu .dropdown-item-text .badge {
+  position: static !important;
+  display: block !important;
+  float: none !important;
+  margin-bottom: 0.5rem !important;
+  width: fit-content !important;
+}
+
+.dropdown-menu .dropdown-item-text {
+  white-space: normal !important;
+  max-width: 250px !important;
+}
+
+.dropdown-menu .dropdown-item-text small {
+  display: block !important;
+  word-break: break-all !important;
+}

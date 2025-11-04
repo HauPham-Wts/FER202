@@ -85,15 +85,6 @@ const Detail = () => {
   return (
     <div className="bg-light min-vh-100 py-4">
       <Container>
-        <Button 
-          variant="outline-primary" 
-          size="lg" 
-          onClick={() => navigate('/')}
-          className="mb-4 shadow-sm"
-        >
-          <FaArrowLeft className="me-2" /> Back to Gallery
-        </Button>
-
         {/* Success/Error Messages */}
         {success && (
           <Alert variant="success" dismissible onClose={() => dispatch(clearSuccess())}>
